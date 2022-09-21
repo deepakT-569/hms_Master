@@ -4,8 +4,8 @@ const mysql = require("mysql2");
 
 const con = mysql.createConnection({
           host:'localhost',
-          user:'babu',
-          password:'Deesql@1996',
+          user:'root',
+          password:'Ayush@14326',
           database : "HMS",
 });
     con.connect((err)=>{
@@ -39,19 +39,19 @@ module.exports.login = function(Email,Password,callback){
 //ADMIN 
 
 module.exports.createAdminTable= function(callback){
-var sql = "Create table Admin (A_ID Varchar(50) primary key , Name Varchar(50),DOB Varchar(50),Gender Varchar(50),Email_ID Varchar(50),Mobile_No Varchar(50),Address Varchar(50))";
+var sql = "Create table Admin (A_ID Varchar(50) primary key , Name Varchar(50),DOB Varchar(50),Gender Varchar(50),Email Varchar(50),Mobile_No Varchar(50),Address Varchar(50))";
 con.query(sql,callback);
 }
 
-module.exports.adminData = function(A_id,Name,DOB,Gender,Email_ID,Mobile_no,Address,callback){
-    var sql = "Insert into Admin(A_id,Name,DOB,Gender,Email_ID,Mobile_no,Address) value ?";
-    con.query(sql,[A_id,Name,DOB,Gender,Email_ID,Mobile_no,Address],callback);
+module.exports.adminData = function(A_id,Name,DOB,Gender,Email,Mobile_no,Address,callback){
+    var sql = "Insert into Admin(A_id,Name,DOB,Gender,Email,Mobile_no,Address) value ?";
+    con.query(sql,[A_id,Name,DOB,Gender,Email,Mobile_no,Address],callback);
 }
 
-module.exports.profile = function(Email,Password,callback){
-    var sql ="Select * from Admin where Email=? and Password=?";
-    con.query(sql,Email,Password,callback);
-}
+// module.exports.profile = function(Email,Password,callback){
+//     var sql ="Select * from Admin where Email=? and Password=?";
+//     con.query(sql,Email,Password,callback);
+// }
 
 //Doctor
 module.exports.createDoctorTable=function(callback){
@@ -65,4 +65,66 @@ module.exports.doctorData =function(D_Id,Name,Age,Gender,Specialization,Experien
 }
 
 
+//Patient
+
+module.exports.createPatientTable = function(callback)
+{
+    var sql ="create table Patient(P_ID varchar(50) primary key,Name varchar(50) NOT NULL,DOB varchar(50) NOT NULL,Gender varchar(50) NOT NULL,Blood_Group varchar(50) NOT NULL,Email varchar(50),Address varchar(50) NOT NULL,Mobile_no varchar(20) NOT NULL)";
+    con.query(sql,callback)
+}
+
+module.exports.getPatient =function(P_ID,callback)
+   {
+     var sql = "select * from patient where P_ID = ? ";
+      con.query(sql,P_ID,callback);
+   }
+
+
+module.exports.createPatient =function(P_ID,Name,DOB,Gender,Blood_Group,Email,Address,Mobile_no,callback)
+{
+    var sql ="insert into Patient(P_ID,Name,DOB,Gender,Blood_Group,Email,Address,Mobile_no) VALUES ( ?,?,?,?,?,?,?,? )";
+    con.query(sql,P_ID,Name,DOB,Gender,Blood_Group,Email,Address,Mobile_no,callback);
+}
+
+
+module.exports.updatePatient =function(P_ID,Name,DOB,Gender,Blood_Group,Email,Address,Mobile_no,callback)
+{
+    var sql ="update Patient set Name=?,DOB=?,Gender=?,Blood_Group=?,Email=?,Address=?,Mobile_no=? where P_ID=?";
+    con.query(sql,P_ID,Name,DOB,Gender,Blood_Group,Email,Address,Mobile_no,callback);
+}
+
+//Appointment
+
+module.exports.createAppointmentTable = function(callback)
+{
+    var sql ="create table Appointment(P_ID varchar(50) primary key,Doctor_Name varchar(50) NOT NULL,Date date NOT NULL,Time time NOT NULL,Specialization varchar(50) NOT NULL,Consultant_Fee int NOT NULL)";
+    con.query(sql,callback)
+}
+
+
+module.exports.getAppointment =function(P_ID,callback)
+   {
+     var sql = "select * from Appointment where P_ID = ? ";
+      con.query(sql,P_ID,callback);
+   }
+
+
+module.exports.bookAppointment=function(P_ID,Doctor_Name,Date,Time,Specialization,Consultant_Fee,callback)
+{
+    var sql ="insert into Appointment(P_ID,Doctor_Name,Date,Time,Specialization,Consultant_Fee) VALUES ( ?,?,?,?,?,? )";
+    con.query(sql,P_ID,Doctor_Name,Date,Time,Specialization,Consultant_Fee,callback);
+}
+
+
+module.exports.updateAppointment =function(P_ID,Doctor_Name,Date,Time,Specialization,Consultant_Fee,callback)
+{
+    var sql ="update Appointment set P_ID=? ,Doctor_Name=?,Date=?,Time=?,Specialization=?,Consultant_Fee=? where P_ID=?";
+    con.query(sql,P_ID,Doctor_Name,Date,Time,Specialization,Consultant_Fee,callback);
+}
+
+module.exports.cancelAppointment =function(P_ID,callback)
+{
+    var sql ="delete from appointment where P_id= where P_ID=?";
+    con.query(sql,P_ID,callback);
+}
 // module.exports =con;
