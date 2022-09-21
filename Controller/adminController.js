@@ -3,8 +3,8 @@ const con = require("../Database/db");
 //Create Doctor Table
 
         module.exports.AddAdmin =(req,res)=>{
-        const{A_id,Name,DOB,Gender,Email_ID,Mobile_no,Address} = req.body
-        con.adminData(A_id,Name,DOB,Gender,Email_ID,Mobile_no,Address,(err)=>{
+        const{A_id,Name,DOB,Gender,Email,Mobile_no,Address} = req.body
+        con.adminData(A_id,Name,DOB,Gender,Email,Mobile_no,Address,(err)=>{
                 if(err) throw err;
                 else 
                 console.log("Inserted Data successfully");
