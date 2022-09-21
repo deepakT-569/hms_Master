@@ -1,0 +1,34 @@
+.card-admin{
+    display: flex;
+    flex-direction:row;
+    width:550vw;
+    height:200vh;
+    justify-content: left;
+    border: solid 1px black;
+    
+}
+
+.card-admin > .menu{
+    display: flex;
+    margin-right: 20px;
+    padding: 20px;
+    flex-direction:column;
+    align-items: flex-start;
+    height:100%;
+    width:300px;
+    background-color: rgb(42, 128, 240);
+}
+.link
+{
+    text-decoration: none;
+    padding: 10px 0 25px 25px;
+    color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight:bold;
+   
+}
+.Info{
+    margin:40px;
+}
+
+
